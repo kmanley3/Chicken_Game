@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
@@ -7,6 +6,8 @@ public class PlayerMove : MonoBehaviour {
 public float moveSpeed;
 public float turnSpeed;
 public float jumpHeight;
+
+// void OnTriggerStay(Collider other)
 
 void Update () {
 	var j = Input.GetAxis("Jump")* Time.deltaTime * jumpHeight;
@@ -18,6 +19,5 @@ void Update () {
 	transform.Translate(0,0,z);
 	transform.Translate(0,j,0);
 }
-
 
 }

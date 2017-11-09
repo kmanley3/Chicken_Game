@@ -20,10 +20,12 @@ public class ChickenAI : MonoBehaviour {
   } 
   void OnCollisionEnter(Collision other) 
   { 
-    if(other.gameObject.name == "Player") 
+    if(other.gameObject.name == "Player"){ 
     scoreManager.AddPoints(points); 
     transform.position = chickenPen.position; 
     transform.rotation = chickenPen.rotation; 
- 
+    }
     } 
 } 
+
+//make it spicy

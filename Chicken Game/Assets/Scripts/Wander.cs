@@ -3,6 +3,11 @@
  
  public class Wander : MonoBehaviour{
 public float moveSpeed;
+public Transform target;
+
+void Start(){
+    MoveForward();
+}
 void MoveForward(){
     transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
 }
@@ -11,7 +16,7 @@ void Turn(){
     transform.Rotate(0,randomNum,0);
 }
 
-void OnTriggerStay(Collider other){
+void OnTriggerEnter(Collider other){
     if(other.gameObject.tag == "CheckPoint"){
         Turn();
     }

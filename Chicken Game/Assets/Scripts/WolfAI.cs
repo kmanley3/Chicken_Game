@@ -7,28 +7,32 @@ public class WolfAI : MonoBehaviour {
 	public float moveSpeed;
 	public Transform target;
 	public int damage;
+	public GameObject pcHealth;
 	
 	void OnTriggerStay (Collider other)
 	{
 
 		if(other.gameObject.name == "Player"){
-			Debug.Log("Player has entered wolf's trigger");
+			Debug.Log("Wolf is following!");
 			transform.LookAt(target);
 			transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
 		}
 	}
 
 	void OnCollisionEnter (Collision other){
+		
 		if(other.gameObject.name == "Player"){
-
+		
+			print("Wolf is attacking!");
+			var hit = other.gameObject;
+			var health = hit.GetComponent<playerHealth>();
+		
+			if(pcHealth !=null){
+				// pcHealth.TakeDamage(damage);
+				pcHealth.gameObject.GetComponent<playerHealth>().TakeDamage(damage);
+			}
 		}
-		print("Wolf is attacking!");
-		var hit = other.gameObject;
-		var health = hit.GetComponent<playerHealth>();
-	
-	if(health !=null){
-		health.TakeDamage(damage);
-		}
+		
 	}
 
 

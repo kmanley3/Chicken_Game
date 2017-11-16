@@ -15,7 +15,7 @@ public class ChickenAI : MonoBehaviour {
     if(other.gameObject.name == "Player"){ 
       Debug.Log("Player has entered chickens trigger"); 
       transform.LookAt(target); 
-      transform.Translate(Vector3.back*moveSpeed*Time.deltaTime); 
+      transform.Translate(Vector3.back*moveSpeed*Time.deltaTime);
     } 
   } 
   void OnCollisionEnter(Collision other) 
@@ -24,7 +24,7 @@ public class ChickenAI : MonoBehaviour {
     scoreManager.AddPoints(points); 
     transform.position = chickenPen.position; 
     transform.rotation = chickenPen.rotation; 
-    }
+      }
     } 
 } 
 

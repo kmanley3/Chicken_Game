@@ -1,12 +1,19 @@
- using UnityEngine;
- using System.Collections;
+using UnityEngine;
+using System.Collections;
  
- public class Wander : MonoBehaviour{
+public class Wander : MonoBehaviour{
 public float moveSpeed;
 public Transform target;
+private float countdown;
+// public float jumpHeight;
+// private float jumpCountdown;
+
+
 
 void Start(){
     MoveForward();
+    countdown = Random.Range(1f,5f);
+    
 }
 void MoveForward(){
     transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
@@ -16,15 +23,25 @@ void Turn(){
     transform.Rotate(0,randomNum,0);
 }
 
-void OnTriggerEnter(Collider other){
-    if(other.gameObject.tag == "CheckPoint"){
+void Update(){
+    countdown -= Time.deltaTime;
+    if(countdown <= 0){
+        countdown = Random.Range(1f,5f);
         Turn();
+
     }
-    else{
-        MoveForward();
-    }
+    // jumpCountdown -= Time.deltaTime;
+    // if(jumpCountdown <= 0){
+    //     jumpCountdown = Random.Range(1f,7f);
+    //     Jump();
+    // }
 }
 
+// void Jump(){
+//     RigidBody jumper = GetComponent<RigidBody>();
+//     jumper.velocity = new Vector3(0,jumpHeight,0);
+    
+// }
     //  public float Speed = 7;
     //  Vector3 wayPoint;
     //  int Range = 10;

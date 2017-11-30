@@ -3,7 +3,6 @@ using System.Collections;
  
 public class Wander : MonoBehaviour{
 public float moveSpeed;
-public Transform target;
 private float countdown;
 // public float jumpHeight;
 // private float jumpCountdown;
@@ -12,7 +11,7 @@ private float countdown;
 
 void Start(){
     MoveForward();
-    countdown = Random.Range(1f,5f);
+    countdown = Random.Range(0.5f,3f);
     
 }
 void MoveForward(){
@@ -25,8 +24,9 @@ void Turn(){
 
 void Update(){
     countdown -= Time.deltaTime;
+    MoveForward();
     if(countdown <= 0){
-        countdown = Random.Range(1f,5f);
+        countdown = Random.Range(0.5f,3f);
         Turn();
 
     }

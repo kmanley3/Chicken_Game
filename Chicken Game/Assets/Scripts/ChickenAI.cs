@@ -14,7 +14,12 @@ public class ChickenAI : MonoBehaviour {
 
   void Start(){
     jumpCountdown = Random.Range(1f,7f);
-  } 
+    MoveForward();
+  }
+
+  void MoveForward(){
+    transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
+}
   void OnTriggerStay (Collider other) 
   { 
     if(other.gameObject.name == "Wolf"){ 
@@ -40,18 +45,18 @@ public class ChickenAI : MonoBehaviour {
       Destroy(gameObject);
       }
     }
-  void Update(){
-    jumpCountdown -= Time.deltaTime;
-    if(jumpCountdown <= 0){
-        jumpCountdown = Random.Range(1f,7f);
-        Jump();
-    }
-  }
-  void Jump(){
-    RigidBody jumper = GetComponent<RigidBody>();
-    jumper.velocity = new Vector3(0,jumpHeight,0);
+  // void Update(){
+  //   jumpCountdown -= Time.deltaTime;
+  //   if(jumpCountdown <= 0){
+  //       jumpCountdown = Random.Range(1f,7f);
+  //       Jump();
+  //   }
+  // }
+  // void Jump(){
+  //   RigidBody jumper = GetComponent<RigidBody>();
+  //   jumper.velocity = new Vector3(0,jumpHeight,0);
     
-  }
+  // }
   
 } 
 

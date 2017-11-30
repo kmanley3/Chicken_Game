@@ -36,25 +36,25 @@ public class GoldenChicken : MonoBehaviour {
     transform.position = chickenPen.position; 
     transform.rotation = chickenPen.rotation; 
       }
-    if(other.gameObject.name == "Wolf"){
-      scoreManager.SubtractPoints(badPoints);
-      goldenChickenHealth -= 1;
-      if(goldenChickenHealth <= 0){
-          Destroy(gameObject);
-        }
-      }
+    // if(other.gameObject.name == "Wolf"){
+    //   scoreManager.SubtractPoints(badPoints);
+    //   goldenChickenHealth -= 1;
+    //   if(goldenChickenHealth <= 0){
+    //       Destroy(gameObject);
+    //     }
+    //   }
     }
-  void Update(){
-    jumpCountdown -= Time.deltaTime;
-    if(jumpCountdown <= 0){
-        jumpCountdown = Random.Range(1f,7f);
-        Jump();
-    }
-  }
-  void Jump(){
-    RigidBody jumper = GetComponent<RigidBody>();
-    jumper.velocity = new Vector3(0,jumpHeight,0);
+  // void Update(){
+  //   jumpCountdown -= Time.deltaTime;
+  //   if(jumpCountdown <= 0){
+  //       jumpCountdown = Random.Range(1f,7f);
+  //       Jump();
+  //   }
+  // }
+  // void Jump(){
+  //   RigidBody jumper = GetComponent<RigidBody>();
+  //   jumper.velocity = new Vector3(0,jumpHeight,0);
     
-  }
+  // }
   
 } 

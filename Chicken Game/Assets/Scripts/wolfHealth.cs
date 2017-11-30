@@ -9,6 +9,10 @@ public int maxHealth = 3;
 public Transform spawnPoint;
 public int points;
 
+void Start(){
+	currentHealth = maxHealth;
+}
+
 	public void TakeDamage(int amount){
 		currentHealth -= amount;
 		if(currentHealth<=0){

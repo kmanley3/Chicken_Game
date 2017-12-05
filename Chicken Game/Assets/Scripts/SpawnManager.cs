@@ -20,8 +20,7 @@ Transform[] spawnPoints = new Transform [10];
 public GameObject chicken;
 public GameObject wolf;
 public GameObject goldenChicken;
-private int chickenSpawner = Random.Range(0,4);
-private int wolfSpawner = Random.Range(5,9);
+public GameObject finalBoss;
 
 
     void Start(){
@@ -39,7 +38,12 @@ private int wolfSpawner = Random.Range(5,9);
         spawnPoints [8] = wolfSpawn4;
         spawnPoints [9] = wolfSpawn5;
     }
-        
+    void Update(){
+        if(scoreManager.score == 100){
+            SpawnFinalBoss();
+            return;
+        }
+    }    
     void SpawnChicken(){
         int chickenSpawnPointIndex = Random.Range(0,4);
         Instantiate (chicken, spawnPoints[chickenSpawnPointIndex].position, spawnPoints[chickenSpawnPointIndex].rotation);
@@ -51,5 +55,9 @@ private int wolfSpawner = Random.Range(5,9);
     void SpawnGoldenChicken(){
         int goldenChickenSpawnPointIndex = Random.Range(0,4);
         Instantiate (goldenChicken, spawnPoints[goldenChickenSpawnPointIndex].position, spawnPoints[goldenChickenSpawnPointIndex].rotation);
+    }
+    void SpawnFinalBoss(){
+        int finalBossSpawnPointIndex = 2;
+        Instantiate (finalBoss, spawnPoints[finalBossSpawnPointIndex].position, spawnPoints[finalBossSpawnPointIndex].rotation);
     }    
 }

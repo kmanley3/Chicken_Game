@@ -8,14 +8,22 @@ public class WolfAI : MonoBehaviour {
 	public Transform target;
 	public int damage;
 	public GameObject pcHealth;
+	public GameObject wolf = GameObject.Find("Wolf");
 	
 	void OnTriggerStay (Collider other)
 	{
 
-		if(other.gameObject.name == "Player"){
+		if(Input.GetKeyDown(KeyCode.F)){
+			Debug.Log("F was pressed, but special.");
+			Domestication domestication = wolf.gameObject.GetComponent<Domestication>();
+			domestication.Domesticate();
+
+		}
+		else if(other.gameObject.name == "Player"){
 			Debug.Log("Wolf is following!");
 			transform.LookAt(target);
 			transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
+			
 		}
 	}
 

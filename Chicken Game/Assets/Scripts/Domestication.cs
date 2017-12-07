@@ -8,36 +8,34 @@ public class Domestication : MonoBehaviour {
 	public Transform target;
 	public int damage;
 	public GameObject enemyHealth;
-    public Material changeMaterial;
-
-
+    // public GameObject wolfBehavior;
+    // public Material changeMaterial;
+    bool isDomesticated = false;
+    public GameObject wolfBehavior;
     void OnTriggerStay(Collider other){
         if(other.gameObject.name == "Player"){
             if (Input.GetKeyDown(KeyCode.F))
                 Debug.Log("F was pressed. Domestication???");
-                Domesticate();
-                return;
+                Domesticate(isDomesticated);
         }
-    }
-
-    void Domesticate(){
-        GetComponent(WolfAI).enabled = false;
-        changeMaterial.color = Color.gray;
-        
-    }
-
-    void OnTriggerStay (Collider other){
-        if(other.gameObject.name == "Wolf" && GetComponent(WolfAI).enabled == true && Domesticate()){
-            private float chaseSpeed = moveSpeed*1.3
+        if(other.gameObject.name == "Wolf" && wolfBehavior == false && isDomesticated == true){
             Debug.Log("Wolf is being chased off!");
             transform.LookAt(target);
-            transform.Translate(Vector3.forward*chaseSpeed*Time.deltaTime);
+            transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
         }
+    }
+
+    void Domesticate(bool isDomesticated){
+        var wolfBehavior = this.gameObject.GetComponent<WolfAI>();
+            wolfBehavior.enabled = false;
+        // changeMaterial.color = Color.gray;
+        isDomesticated = true;
+        
     }
 
     void OnCollisionEnter (Collision other){
 		
-		if(other.gameObject.name == "Wolf" && GetComponent(WolfAI).enabled == true && Domesticate()){
+		if(other.gameObject.name == "Wolf" && wolfBehavior == false && isDomesticated == true){
 		
 			print("Wolf is being attacked!");
 			var hit = other.gameObject;
@@ -48,4 +46,5 @@ public class Domestication : MonoBehaviour {
 				enemyHealth.gameObject.GetComponent<wolfHealth>().TakeDamage(damage);
 			}
 		}
+    }
 }

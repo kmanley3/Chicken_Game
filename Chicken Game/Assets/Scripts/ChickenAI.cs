@@ -9,11 +9,10 @@ public class ChickenAI : MonoBehaviour {
   public Transform chickenPen; 
   public int points = 10; 
   public int badPoints = 5;
-  public float jumpHeight;
-  private float jumpCountdown;
+	public GameObject pcHealth;
+	public int heals;
 
-  void Start(){
-    jumpCountdown = Random.Range(1f,7f);
+	void Start(){
     MoveForward();
   }
 
@@ -22,17 +21,32 @@ public class ChickenAI : MonoBehaviour {
 }
   void OnTriggerStay (Collider other) 
   { 
-    if(other.gameObject.name == "Wolf"){ 
-      Debug.Log("Wolf has entered chickens trigger"); 
-      transform.LookAt(target); 
-      transform.Translate(Vector3.back*moveSpeed*Time.deltaTime);
-    }
-    else if(other.gameObject.name == "Player"){ 
-      Debug.Log("Player has entered chickens trigger"); 
-      transform.LookAt(target); 
-      transform.Translate(Vector3.back*moveSpeed*Time.deltaTime);
-    }  
-  } 
+		if (other.gameObject.name == "Player") {
+			if (Input.GetKeyDown (KeyCode.F)) {
+				Eat ();
+			} else {
+				Debug.Log ("Player has entered chickens trigger"); 
+				transform.LookAt (target); 
+				transform.Translate (Vector3.back * moveSpeed * Time.deltaTime);
+				var ChickenWander = this.gameObject.GetComponent<Chicken_Wander> ();
+				ChickenWander.enabled = false;
+			}
+		} else if (other.gameObject.tag == "Wolf") { 
+			Debug.Log ("Wolf has entered chickens trigger"); 
+			transform.LookAt (target); 
+			transform.Translate (Vector3.back * moveSpeed * Time.deltaTime);
+			var ChickenWander = this.gameObject.GetComponent<Chicken_Wander> ();
+			ChickenWander.enabled = false;	  
+		}
+    
+  }
+	void OnTriggerExit (Collider other){
+	if (other.gameObject.name == "Player" || other.gameObject.tag == "Wolf"){
+		var ChickenWander = this.gameObject.GetComponent<Chicken_Wander> ();
+		ChickenWander.enabled = true;
+	}
+	}
+		
   void OnCollisionEnter(Collision other) 
   { 
     if(other.gameObject.name == "Player"){ 
@@ -40,24 +54,22 @@ public class ChickenAI : MonoBehaviour {
     transform.position = chickenPen.position; 
     transform.rotation = chickenPen.rotation; 
       }
-    if(other.gameObject.name == "Wolf"){
+    if(other.gameObject.tag == "Wolf"){
       scoreManager.SubtractPoints(badPoints);
       Destroy(gameObject);
       }
     }
-  // void Update(){
-  //   jumpCountdown -= Time.deltaTime;
-  //   if(jumpCountdown <= 0){
-  //       jumpCountdown = Random.Range(1f,7f);
-  //       Jump();
-  //   }
-  // }
-  // void Jump(){
-  //   RigidBody jumper = GetComponent<RigidBody>();
-  //   jumper.velocity = new Vector3(0,jumpHeight,0);
-    
-  // }
+
+
+
+	void Eat(){
+		if (pcHealth != null) {
+			pcHealth.gameObject.GetComponent<playerHealth> ().GainHealth (heals);
+		}
+		scoreManager.SubtractPoints(badPoints);
+		Destroy (this.gameObject);
+	}
   
-} 
+}
 
 //make it spicy

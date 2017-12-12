@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CheckPoint
   - NPC
+  - Chicken
+  - Wolf
+  - Destruction
   layers:
   - Default
   - TransparentFX

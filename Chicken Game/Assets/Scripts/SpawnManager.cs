@@ -3,9 +3,11 @@ using UnityEngine;
  
 public class SpawnManager : MonoBehaviour {
 
-private float chickenSpawnTime = 2.5f;
-private float wolfSpawnTime = 6.5f;
-private float goldenChickenSpawnTime = 11.5f;
+public float chickenSpawnTime = 5f;
+public float wolfSpawnTime = 15;
+public float goldenChickenSpawnTime = 20f;
+public float gCWolfSpawnTime = 20f;
+public float cWolfSpawnTime = 10f;
 public Transform chickenSpawn1;
 public Transform chickenSpawn2;
 public Transform chickenSpawn3;
@@ -18,15 +20,18 @@ public Transform wolfSpawn4;
 public Transform wolfSpawn5;
 Transform[] spawnPoints = new Transform [10];
 public GameObject chicken;
-public GameObject wolf;
+public GameObject gChickenHunter;
+public GameObject playerHunter;
+public GameObject chickenHunter;
 public GameObject goldenChicken;
-public GameObject finalBoss;
 
 
     void Start(){
-        InvokeRepeating ("SpawnChicken", chickenSpawnTime, chickenSpawnTime);
-        InvokeRepeating ("SpawnWolf", wolfSpawnTime, wolfSpawnTime);
-        InvokeRepeating ("SpawnGoldenChicken", goldenChickenSpawnTime, goldenChickenSpawnTime);
+		InvokeRepeating ("SpawnChicken", chickenSpawnTime, chickenSpawnTime);
+		InvokeRepeating ("SpawnPlayerHunter", wolfSpawnTime, wolfSpawnTime);
+		InvokeRepeating ("SpawnChickenHunter", cWolfSpawnTime, cWolfSpawnTime);
+		InvokeRepeating ("SpawnGoldenChickenHunter", gCWolfSpawnTime, gCWolfSpawnTime);
+		InvokeRepeating ("SpawnGoldenChicken", goldenChickenSpawnTime, goldenChickenSpawnTime);
         spawnPoints [0] = chickenSpawn1;
         spawnPoints [1] = chickenSpawn2;
         spawnPoints [2] = chickenSpawn3;
@@ -37,27 +42,25 @@ public GameObject finalBoss;
         spawnPoints [7] = wolfSpawn3;
         spawnPoints [8] = wolfSpawn4;
         spawnPoints [9] = wolfSpawn5;
-    }
-    void Update(){
-        if(scoreManager.score == 100){
-            SpawnFinalBoss();
-            return;
-        }
-    }    
+    }		
     void SpawnChicken(){
         int chickenSpawnPointIndex = Random.Range(0,4);
-        Instantiate (chicken, spawnPoints[chickenSpawnPointIndex].position, spawnPoints[chickenSpawnPointIndex].rotation);
-    }
-    void SpawnWolf(){
+			Instantiate (chicken, spawnPoints [chickenSpawnPointIndex].position, spawnPoints [chickenSpawnPointIndex].rotation);
+	}
+    void SpawnPlayerHunter(){
         int wolfSpawnPointIndex = Random.Range(5,9);
-        Instantiate (wolf, spawnPoints[wolfSpawnPointIndex].position, spawnPoints[wolfSpawnPointIndex].rotation);
-    }
+		Instantiate (playerHunter, spawnPoints[wolfSpawnPointIndex].position, spawnPoints[wolfSpawnPointIndex].rotation);
+	}
+	void SpawnChickenHunter(){
+		int wolfSpawnPointIndex = Random.Range(5,9);
+		Instantiate (chickenHunter, spawnPoints[wolfSpawnPointIndex].position, spawnPoints[wolfSpawnPointIndex].rotation);
+	}
+	void SpawnGoldenChickenHunter(){
+		int wolfSpawnPointIndex = Random.Range(5,9);
+		Instantiate (gChickenHunter, spawnPoints[wolfSpawnPointIndex].position, spawnPoints[wolfSpawnPointIndex].rotation);
+	}
     void SpawnGoldenChicken(){
-        int goldenChickenSpawnPointIndex = Random.Range(0,4);
-        Instantiate (goldenChicken, spawnPoints[goldenChickenSpawnPointIndex].position, spawnPoints[goldenChickenSpawnPointIndex].rotation);
-    }
-    void SpawnFinalBoss(){
-        int finalBossSpawnPointIndex = 2;
-        Instantiate (finalBoss, spawnPoints[finalBossSpawnPointIndex].position, spawnPoints[finalBossSpawnPointIndex].rotation);
-    }    
+		int goldenChickenSpawnPointIndex = Random.Range(0,4);
+			Instantiate (goldenChicken, spawnPoints [goldenChickenSpawnPointIndex].position, spawnPoints [goldenChickenSpawnPointIndex].rotation);
+	}  
 }
